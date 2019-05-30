@@ -1,0 +1,55 @@
+﻿@model IEnumerable<CoffeeShopEntityDatabase.Models.Item>
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.ItemName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ItemDescription)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Qty)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Price)
+        </th>
+        @if (Session["User"] != null)
+        {
+            <th>
+                <p>Buy Something</p>
+            </th>
+        }
+        </tr>
+    @foreach (var item in Model)
+    {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.ItemName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ItemDescription)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Qty)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Price)
+        </td>
+        @if (Session["User"] != null)
+        {
+            <td>
+                <form action="~/Home/BuyItem" method="post">
+                    <input type="hidden" name="ItemId" value="@item.Id" />
+                    <input type="hidden" name="ItemName" value="@item.ItemName" />
+                    <input type="hidden" name="ItemDescription" value="@item.ItemDescription" />
+                    <input type="hidden" name="Qty" value="@item.Qty" />
+                    <input type="hidden" name="Price" value="@item.Price" />
+                    <button type="submit">Buy</button>
+                </form>
+
+            </td>
+        }
+        </tr>
+    }
+</table>
