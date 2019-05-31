@@ -12,14 +12,13 @@ namespace CoffeeShopEntityDatabase.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class Item
+    public partial class UserItem
     {
-        public int Id { get; set; }
-        public string ItemName { get; set; }
-        public string ItemDescription { get; set; }
-        public Nullable<int> Qty { get; set; }
-        public Nullable<decimal> Price { get; set; }
+        public int UserItemID { get; set; }
+        public Nullable<int> UserID { get; set; }
+        public Nullable<int> ItemID { get; set; }
     
-        public virtual UserItem UserItem { get; set; }
+        public virtual Item Item { get; set; }
+        public virtual User User { get; set; }
     }
 }

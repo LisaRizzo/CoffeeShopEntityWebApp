@@ -6,7 +6,10 @@
     <edmx:Diagrams>
       <Diagram DiagramId="f2f6dbfd4cae4a3a81290d5d10a67b36" Name="Diagram1">
         <EntityTypeShape EntityType="ShopDBModel.Item" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="ShopDBModel.User" Width="1.5" PointX="2.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="ShopDBModel.User" Width="1.5" PointX="6.25" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="ShopDBModel.UserItem" Width="1.5" PointX="3.5" PointY="1.5" />
+        <AssociationConnector Association="ShopDBModel.ItemID" />
+        <AssociationConnector Association="ShopDBModel.UserID" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

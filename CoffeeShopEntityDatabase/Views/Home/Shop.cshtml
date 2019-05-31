@@ -1,5 +1,7 @@
 ﻿@model IEnumerable<CoffeeShopEntityDatabase.Models.Item>
-
+@{
+    ViewBag.Title = "Shop";
+}
 <table class="table">
     <tr>
         <th>
@@ -17,13 +19,16 @@
         @if (Session["User"] != null)
         {
             <th>
-                <p>Buy Something</p>
+                Buy Something
             </th>
         }
-        </tr>
+    </tr>
     @foreach (var item in Model)
     {
     <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Id)
+        </td>
         <td>
             @Html.DisplayFor(modelItem => item.ItemName)
         </td>
@@ -40,16 +45,16 @@
         {
             <td>
                 <form action="~/Home/BuyItem" method="post">
-                    <input type="hidden" name="ItemId" value="@item.Id" />
-                    <input type="hidden" name="ItemName" value="@item.ItemName" />
-                    <input type="hidden" name="ItemDescription" value="@item.ItemDescription" />
-                    <input type="hidden" name="Qty" value="@item.Qty" />
-                    <input type="hidden" name="Price" value="@item.Price" />
+                    <input type="hidden" name="id" value="@item.Id" />
+                    <input type="hidden" name="itemName" value="@item.ItemName" />
+                    <input type="hidden" name="itemDescription" value="@item.ItemDescription" />
+                    <input type="hidden" name="quanity" value="@item.Qty" />
+                    <input type="hidden" name="price" value="@item.Price" />
                     <button type="submit">Buy</button>
                 </form>
-
             </td>
         }
-        </tr>
+    </tr>
+
     }
 </table>

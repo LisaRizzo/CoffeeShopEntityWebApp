@@ -1,6 +1,7 @@
 ﻿using CoffeeShopEntityDatabase.Models;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Data.Entity.Migrations;
 using System.Linq;
 using System.Web;
@@ -10,7 +11,7 @@ namespace CoffeeShopEntityDatabase.Controllers
 {
     public class HomeController : Controller
     {
-        ShopDBEntities db = new ShopDBEntities ();
+        ShopDBEntities db = new ShopDBEntities();
         public ActionResult Index()
         {
             return View();
@@ -55,9 +56,9 @@ namespace CoffeeShopEntityDatabase.Controllers
         [HttpPost]
         public ActionResult Login(User u)
         {
-                User user  = db.Users.Where(usr => usr.UserName == u.UserName && usr.Password == u.Password).ToList().First();
-                 Session["User"] = user;
-                 return RedirectToAction("Shop");
+            User user = db.Users.Where(usr => usr.UserName == u.UserName && usr.Password == u.Password).ToList().First();
+            Session["User"] = user;
+            return RedirectToAction("Shop");
         }
         public ActionResult Shop()
         {
@@ -69,21 +70,42 @@ namespace CoffeeShopEntityDatabase.Controllers
         {
             decimal cost = decimal.Parse(i.Price.ToString());
             User user = (User)Session["User"];
-            
             if (user.Funds >= cost)
             {
-                User u = db.Users.Find(user.Id);
-                decimal d = decimal.Parse(u.Funds.ToString()) - cost;
-                u.Funds = d;
-                db.Users.AddOrUpdate(u);
+                User usr = db.Users.SingleOrDefault(u => u.Id == user.Id);
+                Item item = db.Items.SingleOrDefault(x => x.Id == i.Id);
+                decimal difference = decimal.Parse(usr.Funds.ToString()) - cost;
+                usr.Funds = difference;
+                item.Qty -= 1;
+                db.Users.AddOrUpdate(usr);
+                db.Items.AddOrUpdate(item);
+                //User item object then set the user ID prop to the ID of the user that bought the item. 
+                //Also set the itemid prop of the item that was bought. 
+                //Then add or update the user items table and put in the user item obj
+                UserItem uitem = db.UserItems.SingleOrDefault(x => x.ItemID == i.Id);
+                UserItem uuser = db.UserItems.SingleOrDefault(x => x.UserID == usr.Id);
+                db.UserItems.AddOrUpdate(uitem, uuser);
                 db.SaveChanges();
-                Session["User"] = u;
+                Session["User"] = usr;
             }
             else
             {
+                Session["UserFunds"] = user.Funds;
+                Session["ItemCost"] = i.Price;
                 return RedirectToAction("ErrorPage");
             }
             return RedirectToAction("Shop");
+        }
+
+        public ActionResult ErrorPage()
+        {
+            return View();
+        }
+
+        public ActionResult Logout()
+        {
+            Session["User"] = null;
+            return RedirectToAction("Login");
         }
     }
 }

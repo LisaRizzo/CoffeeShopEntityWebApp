@@ -1,4 +1,5 @@
-﻿<!DOCTYPE html>
+﻿@using CoffeeShopEntityDatabase.Models
+<!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8" />
@@ -20,9 +21,23 @@
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
-                    <li>@Html.ActionLink("Home", "Index", "Home")</li>
-                    <li>@Html.ActionLink("About", "About", "Home")</li>
-                    <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
+                    @if (Session["User"] != null)
+                    {
+                        User u = (User)Session["User"];
+
+                        <li>@Html.ActionLink("Home", "Index", "Home")</li>
+                        <li>@Html.ActionLink("Shop", "Shop", "Home")</li>
+                        <li>@Html.ActionLink("List", "Index", "UserItems")</li>
+                        <li>@Html.ActionLink("Details", "Details", "UserItems")</li>
+                        <li>@Html.ActionLink("Delete", "Delete", "UserItems")</li>
+                        <li style="color:white">@u.UserName has $ @u.Funds</li>
+                    }
+                    else
+                    {
+                        <li>@Html.ActionLink("Home", "Index", "Home")</li>
+                        <li>@Html.ActionLink("Register", "Register", "Home")</li>
+                        <li>@Html.ActionLink("Login", "Login", "Home")</li>
+                    }
                 </ul>
             </div>
         </div>
