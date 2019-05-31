@@ -14,7 +14,7 @@ namespace CoffeeShopEntityDatabase.Models
     
     public partial class UserItem
     {
-        public int UserItemID { get; set; }
+        public int UserItemId { get; set; }
         public Nullable<int> UserID { get; set; }
         public Nullable<int> ItemID { get; set; }
     

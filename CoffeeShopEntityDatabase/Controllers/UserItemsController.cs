@@ -12,7 +12,7 @@ namespace CoffeeShopEntityDatabase.Controllers
 {
     public class UserItemsController : Controller
     {
-        private ShopDBEntities db = new ShopDBEntities();
+        private ShopDBEntities1 db = new ShopDBEntities1();
 
         // GET: UserItems
         public ActionResult Index()
@@ -58,8 +58,8 @@ namespace CoffeeShopEntityDatabase.Controllers
                 return RedirectToAction("Index");
             }
 
-            ViewBag.UserItemID = new SelectList(db.Items, "Id", "ItemName", userItem.UserItemID);
-            ViewBag.UserItemID = new SelectList(db.Users, "Id", "UserName", userItem.UserItemID);
+            ViewBag.UserItemID = new SelectList(db.Items, "Id", "ItemName", userItem.UserItemId);
+            ViewBag.UserItemID = new SelectList(db.Users, "Id", "UserName", userItem.UserItemId);
             return View(userItem);
         }
 
@@ -75,8 +75,8 @@ namespace CoffeeShopEntityDatabase.Controllers
             {
                 return HttpNotFound();
             }
-            ViewBag.UserItemID = new SelectList(db.Items, "Id", "ItemName", userItem.UserItemID);
-            ViewBag.UserItemID = new SelectList(db.Users, "Id", "UserName", userItem.UserItemID);
+            ViewBag.UserItemID = new SelectList(db.Items, "Id", "ItemName", userItem.UserItemId);
+            ViewBag.UserItemID = new SelectList(db.Users, "Id", "UserName", userItem.UserItemId);
             return View(userItem);
         }
 
@@ -93,8 +93,8 @@ namespace CoffeeShopEntityDatabase.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            ViewBag.UserItemID = new SelectList(db.Items, "Id", "ItemName", userItem.UserItemID);
-            ViewBag.UserItemID = new SelectList(db.Users, "Id", "UserName", userItem.UserItemID);
+            ViewBag.UserItemID = new SelectList(db.Items, "Id", "ItemName", userItem.UserItemId);
+            ViewBag.UserItemID = new SelectList(db.Users, "Id", "UserName", userItem.UserItemId);
             return View(userItem);
         }
 

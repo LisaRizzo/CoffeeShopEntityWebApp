@@ -14,12 +14,19 @@ namespace CoffeeShopEntityDatabase.Models
     
     public partial class Item
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public Item()
+        {
+            this.UserItems = new HashSet<UserItem>();
+        }
+    
         public int Id { get; set; }
         public string ItemName { get; set; }
         public string ItemDescription { get; set; }
         public Nullable<int> Qty { get; set; }
         public Nullable<decimal> Price { get; set; }
     
-        public virtual UserItem UserItem { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<UserItem> UserItems { get; set; }
     }
 }

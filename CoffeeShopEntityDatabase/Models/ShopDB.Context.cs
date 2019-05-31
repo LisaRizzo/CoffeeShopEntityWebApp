@@ -13,10 +13,10 @@ namespace CoffeeShopEntityDatabase.Models
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
     
-    public partial class ShopDBEntities : DbContext
+    public partial class ShopDBEntities1 : DbContext
     {
-        public ShopDBEntities()
-            : base("name=ShopDBEntities")
+        public ShopDBEntities1()
+            : base("name=ShopDBEntities1")
         {
         }
     
@@ -26,7 +26,7 @@ namespace CoffeeShopEntityDatabase.Models
         }
     
         public virtual DbSet<Item> Items { get; set; }
-        public virtual DbSet<User> Users { get; set; }
         public virtual DbSet<UserItem> UserItems { get; set; }
+        public virtual DbSet<User> Users { get; set; }
     }
 }

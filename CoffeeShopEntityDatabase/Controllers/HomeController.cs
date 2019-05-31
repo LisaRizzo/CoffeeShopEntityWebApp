@@ -11,7 +11,7 @@ namespace CoffeeShopEntityDatabase.Controllers
 {
     public class HomeController : Controller
     {
-        ShopDBEntities db = new ShopDBEntities();
+        ShopDBEntities1 db = new ShopDBEntities1();
         public ActionResult Index()
         {
             return View();
@@ -79,12 +79,8 @@ namespace CoffeeShopEntityDatabase.Controllers
                 item.Qty -= 1;
                 db.Users.AddOrUpdate(usr);
                 db.Items.AddOrUpdate(item);
-                //User item object then set the user ID prop to the ID of the user that bought the item. 
-                //Also set the itemid prop of the item that was bought. 
-                //Then add or update the user items table and put in the user item obj
-                UserItem uitem = db.UserItems.SingleOrDefault(x => x.ItemID == i.Id);
-                UserItem uuser = db.UserItems.SingleOrDefault(x => x.UserID == usr.Id);
-                db.UserItems.AddOrUpdate(uitem, uuser);
+                UserItem uitem = new UserItem() {ItemID=item.Id, UserID=usr.Id };
+                db.UserItems.Add(uitem);
                 db.SaveChanges();
                 Session["User"] = usr;
             }
